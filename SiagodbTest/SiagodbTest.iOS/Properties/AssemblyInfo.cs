@@ -37,4 +37,4 @@ using ObjCRuntime;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: LinkWith("liblmdb.a", LinkTarget.Simulator, Frameworks = "Foundation", ForceLoad = true)]
+[assembly: LinkWith("liblmdb.a", LinkTarget.Simulator | LinkTarget.Arm64 | LinkTarget.ArmV7 | LinkTarget.ArmV7s, Frameworks = "Foundation", ForceLoad = true)]
