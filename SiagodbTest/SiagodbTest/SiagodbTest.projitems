@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DbModels\SimpleModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DependencyInterfaces\ISiaqoDatabase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SiaqodbFactory.cs" />
   </ItemGroup>
