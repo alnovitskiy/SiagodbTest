@@ -29,7 +29,7 @@ namespace SiagodbTest
 
 	    private void OnButtonStingTestClicked(object sender, EventArgs e)
 	    {
-            var str = "Very long string 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 ";
+            var str = "Very long string  1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 ";
             var database = SiaqodbFactory.GetInstance();
             database.DropType<SimpleModel>();
             database.StoreObject(new SimpleModel() { StringField = str }/*, this.transaction*/);
