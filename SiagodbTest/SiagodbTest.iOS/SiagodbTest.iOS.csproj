@@ -139,12 +139,12 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Siaqodb, Version=5.0.0.7, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Siaqodb.5.0.0.7\lib\Xamarin.iOS10\Siaqodb.dll</HintPath>
+    <Reference Include="Siaqodb, Version=5.5.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Siaqodb.5.5.0.2\lib\Xamarin.iOS10\Siaqodb.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SiaqodbPortable, Version=4.0.2.27, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Siaqodb.5.0.0.7\lib\Xamarin.iOS10\SiaqodbPortable.dll</HintPath>
+    <Reference Include="SiaqodbPortable, Version=5.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Siaqodb.5.5.0.2\lib\Xamarin.iOS10\SiaqodbPortable.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
