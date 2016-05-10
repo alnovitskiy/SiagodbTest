@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SiagodbTest.DbModels;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace SiagodbTest
 {
@@ -11,46 +12,66 @@ namespace SiagodbTest
 	{
 		public App ()
 		{
-		    var btn = new Button() {Text = "Create Siagodb instance"};
-		    btn.Clicked += OnButtonClicked;
+		    var btnCreate = new Button() {Text = "Create db and add data"};
+            btnCreate.Clicked += OnButtonClicked;
 
-            var btnStingTest = new Button() { Text = "Test string field" };
-            btnStingTest.Clicked += OnButtonStingTestClicked;
+            var btnUpdate = new Button() { Text = "Update data"};
+            btnUpdate.Clicked += OnButtonUpdateClicked;
 
-			// The root page of your application
-			MainPage = new ContentPage {
+            var btnTest = new Button() { Text = "Test data" };
+            btnTest.Clicked += OnButtonTestClicked;
+
+            // The root page of your application
+            MainPage = new ContentPage {
 				Content = new StackLayout {
 					VerticalOptions = LayoutOptions.Center,
                     HorizontalOptions = LayoutOptions.Center,
-                    Children = { btn, btnStingTest }
+                    Children = { btnCreate, btnUpdate, btnTest }
 				}
 			};
 		}
 
-	    private void OnButtonStingTestClicked(object sender, EventArgs e)
-	    {
-            var str = "Very long string  1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 1234567890 ";
-            var database = SiaqodbFactory.GetInstance();
-            database.DropType<SimpleModel>();
-            database.StoreObject(new SimpleModel() { StringField = str }/*, this.transaction*/);
-            MainPage.DisplayAlert("", "We saved an object with property StringField = "+str, "OK").ContinueWith((task) =>
-	        {
-                var model = database.Cast<SimpleModel>().ToList().First();
-                Device.BeginInvokeOnMainThread(() => MainPage.DisplayAlert("", "We got this object from the db and property StringField = " + model.StringField, "OK"));
-	        });
-	    }
-
-	    private void OnButtonClicked(object sender, EventArgs e)
+        private void OnButtonClicked(object sender, EventArgs e)
 	    {
 	        try
 	        {
                 var database = SiaqodbFactory.GetInstance();
-                if (database != null) MainPage.DisplayAlert("", "The db instance was created successfully", "OK");
-	        }
+                database.DropType<SimpleModel>();
+                var model = new SimpleModel();
+                model.Items = new List<SimpleItem>();
+                model.Items.Add(new SimpleItem() { Property1 = "valu1", Property2 = "value2" });
+                database.StoreObject(model);
+            }
 	        catch (Exception ex)
 	        {
                 MainPage.DisplayAlert("Error", ex.Message, "OK");
 	        }
 	    }
-	}
+
+        private void OnButtonUpdateClicked(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                var database = SiaqodbFactory.GetInstance();
+                var model = (from SimpleModel m in database select m).First();
+                var item = model.Items.First();
+                item.Property1 = "new value1";
+                item.Property2 = "new value2";
+                database.StoreObject(model);
+            });
+
+        }
+
+        private void OnButtonTestClicked(object sender, EventArgs e)
+        {
+            var database = SiaqodbFactory.GetInstance();
+            var model = (from SimpleModel m in database select m).First();
+            var item = model.Items.First();
+                        
+            if(item.Property1 != "new value1" || item.Property2 != "new value2")
+            {
+                MainPage.DisplayAlert("Error", "Data wasn't updated correctly", "OK");
+            }
+        }
+    }
 }
