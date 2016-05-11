@@ -6,7 +6,11 @@ namespace SiagodbTest.DbModels
 {
     public class SimpleItem
     {
-        public string Property1 { get; set; }
+        string property1 = "0";
+        public string Property1 {
+            get { return property1; }
+            set { property1 = value; }
+        }
         public string Property2 { get; set; }
     }
 }
